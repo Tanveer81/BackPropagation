@@ -88,7 +88,6 @@ def createNeurons():
     #         print(neuralNetwork[i][j].inputs, end=" , ")
     #         print(neuralNetwork[i][j].weight)
     #     print()
-#     
 
 
 def main():
