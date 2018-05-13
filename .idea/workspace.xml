@@ -12,15 +12,15 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/untitled1$backPropagation.coverage" NAME="backPropagation Coverage Results" MODIFIED="1526229376303" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/untitled1$backPropagation.coverage" NAME="backPropagation Coverage Results" MODIFIED="1526229951426" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="backPropagation.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backPropagation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="89" column="17" selection-start-line="89" selection-start-column="17" selection-end-line="89" selection-end-column="17" />
+            <state relative-caret-position="192">
+              <caret line="86" column="27" selection-start-line="86" selection-start-column="27" selection-end-line="86" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -58,9 +58,11 @@
       <find>numberofsam</find>
       <find>dataset</find>
       <find>neuron</find>
+      <find>neuralNetwork</find>
     </findStrings>
     <replaceStrings>
       <replace>dataset</replace>
+      <replace>nn</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -302,8 +304,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backPropagation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="89" column="17" selection-start-line="89" selection-start-column="17" selection-end-line="89" selection-end-column="17" />
+        <state relative-caret-position="192">
+          <caret line="86" column="27" selection-start-line="86" selection-start-column="27" selection-end-line="86" selection-end-column="27" />
         </state>
       </provider>
     </entry>
