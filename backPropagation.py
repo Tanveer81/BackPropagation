@@ -20,7 +20,7 @@ class neuron:
         self.out = 1
         self.net = 1
         self.bias = 0
-
+        self.error = 0
 
 def sigmoid(x):
     return 1 / (1 + math.exp(-x))
@@ -97,6 +97,10 @@ def createNeurons():
     #         print(nn[i][j].weight)
     #     print()
 
+
+def learn():
+    for data in dataSet:
+        fwdPropagation(data)
 
 def fwdPropagation(input):
     for i in range(0, layers + 1):
