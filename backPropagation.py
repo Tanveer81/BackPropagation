@@ -84,7 +84,10 @@ def createNeurons():
 def fwdPropagation(input):
     for i in range(0, layers+1):
         for j in range(0, neurons[i + 1]):
-            nn[i][j].net = 
+            sum = 0
+            for k in neurons[i]:
+                sum
+            nn[i][j].net = sum
 
 
 def backPropagation():
