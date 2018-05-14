@@ -1,20 +1,20 @@
 import random
 import math
 
-global layers, neurons, attributes, classes , error
+global layers, neurons, attributes, classes , error , learnRate
 neurons = []
 numberOfSample = 0
-dataSet = []
+dataet = []
 nn = []
 
 wt = [.15, .2, .25, .3, .4, .45, .5, .55]
 
 
 class neuron:
-    def __init__(self, layer, position, inputs):
+    def __init__(self, layer, position, data):
         self.layer = layer
         self.position = position
-        self.inputs = inputs
+        self.data = data
         #actual weight container
         self.weight = []
         #temporary weight container to update weights in back propagation phase
@@ -30,9 +30,8 @@ def sigmoid(x):
 
 
 def init():
-    # in parameter.txt 1st , 2nd and 3rd line has layers,attributes and classes and next lines has number of neurons
-    # in each layer
-    global dataSet, neurons, layers, attributes, classes, numberOfSample
+    # in parameter.txt 1st , 2nd and 3rd line has layers,attributes and classes and next lines has number of neurons in each layer
+    global dataet, neurons, layers, attributes, classes, numberOfSample
     random.seed(4000)
     file = open("parameters.txt", "r")
     layers = int(file.readline())
@@ -58,16 +57,16 @@ def init():
     fp.close()  # close file\
     for line in lines:
         tokenizer = line.split()
-        dataSet.append(tokenizer)
+        dataet.append(tokenizer)
         numberOfSample = numberOfSample + 1
     print("Number Of samples", end=" : ")
     print(numberOfSample)
     # for ii in range(0, numberOfSample):
     #     for j in range(0, attributes +1):
-    #         print(dataSet[ii][j], end=" ")
+    #         print(dataet[ii][j], end=" ")
     #     print("")
-    # print(float(dataSet[0][0]))
-    # backPropagation(dataset)
+    # print(float(dataet[0][0]))
+    # backPropagation(dataet)
     # print(globals())
 
 
@@ -97,22 +96,22 @@ def createNeurons():
     #     for j in range(0, neurons[i + 1]):
     #         print(nn[i][j].layer, end=" , ")
     #         print(nn[i][j].position, end=" , ")
-    #         print(nn[i][j].inputs, end=" , ")
+    #         print(nn[i][j].data, end=" , ")
     #         print(nn[i][j].weight)
     #     print()
 
 
 def learn():
     global error
-    for data in dataSet:
+    for data in dataet:
         error = 0
-        #must change it  to 0 #########################################################################################
+        """must change it  to 0 #########################################################################################"""
         target = [.01] * classes
         e = int(data[attributes])-1
-        #must change it  to 1 #########################################################################################
+        """must change it  to 1 #########################################################################################"""
         target[e] = .99
         print(target)
-        fwdPropagation(data, target)
+        fwdPropagation(data)
 
         for j in range(0, classes):
             # print(target[j], end=" ")
@@ -120,14 +119,17 @@ def learn():
             nn[layers][j].error = .5 * ((target[j] - nn[layers][j].out) ** 2)
             # print(nn[layers][j].error, end=" ")
             error = error + nn[layers][j].error
+        print("Error : ", end="")
+        print(error)
+        backPropagation(data, target)
 
-def fwdPropagation(input, target):
+def fwdPropagation(data):
     for i in range(0, layers + 1):
         for j in range(0, neurons[i + 1]):
             sum = nn[i][j].bias
             if i == 0:
                 for k in range(0, attributes):
-                    sum = sum + float(input[k]) * nn[i][j].weight[k]
+                    sum = sum + float(data[k]) * nn[i][j].weight[k]
             else:
                 for k in range(0, neurons[i]):
                     sum = sum + nn[i - 1][k].out * nn[i][j].weight[k]
@@ -135,9 +137,33 @@ def fwdPropagation(input, target):
             nn[i][j].net = sum
             nn[i][j].out = sigmoid(sum)
 
-def backPropagation():
-    # print(dat)
-    print("Hello from a function")
+def backPropagation(data, target):
+    """Output Layer"""
+    for j in range(0, classes):
+        nn[layers][j].delta = (nn[layers][j].out - target[j]) * nn[layers][j].out * (1 - nn[layers][j].out)
+        """Temporary Update"""
+        for i in range(0, neurons[layers-1]):
+            nn[layers][j].tempWeight[i] -= .5 * nn[layers][j].delta * nn[layers - 1][j].out
+
+    """Hidden Layer"""
+    for r in range (layers, -1, -1):
+        for j in range (0 , neurons[r + 1]):
+            nn[r-1][j].delta =0
+            for i in range (0, neurons[r]):
+                nn[r-1][j].delta += (nn[r][j].delta * nn[r][j].weight[i]) * nn[r - 1][j].out * (1 - nn[r - 1][j].out)
+                """Temporary Update"""
+                if r != 1:
+                    nn[r - 1][j].tempWeight[i] -= .5 * nn[r-1][j].delta * nn[r-2][j].out
+                else:
+                    nn[r - 1][j].tempWeight[i] -= .5 * nn[r - 1][j].delta * float(data[i])
+                # print(nn[r - 1][j].tempWeight[i])
+
+    """Updating Weights"""
+    for i in range(0, layers + 1):
+        for j in range(0, neurons[i + 1]):
+            nn[i][j].weight = nn[i][j].tempWeight.copy()
+
+
 
 
 def main():
@@ -148,7 +174,19 @@ def main():
     nn[1][0].bias = .6
     nn[1][1].bias = .6
     learn()
-    # fwdPropagation(dataSet[0],[.01,.99])
+
+    for i in range(0, layers+1):
+        for j in range(0, neurons[i + 1]):
+            print(nn[i][j].layer, end=" , ")
+            print(nn[i][j].position, end="  ")
+            # print(nn[i][j].data, end=" , ")
+            print(nn[i][j].weight)
+
+        print(nn[1][0].out,end=" ")
+        print(nn[1][1].out)
+
+    print()
+    # fwdPropagation(dataet[0],[.01,.99])
     # print(nn[1][1].net, end=" ")
     # print(nn[1][1].out, end=" ")
 
