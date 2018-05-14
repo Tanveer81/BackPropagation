@@ -60,6 +60,8 @@ def init():
         numberOfSample = numberOfSample + 1
     print("Number Of samples", end=" : ")
     print(numberOfSample)
+
+    random.shuffle(dataset)
     
     fp = open('test.txt')  # open file on read mode
     lines2 = fp.read().split("\n")  # create a list containing all lines
@@ -173,7 +175,7 @@ def test():
                 # print(nn[layers][j].out,end=" ")
                 max = nn[layers][j].out
                 result = j+1
-        if float(data[2]) != result:
+        if float(data[attributes]) != result:
             errorNo+=1
 
     return errorNo
@@ -181,7 +183,6 @@ def test():
 def main():
     init()
     createNeurons()
-
     start = time.clock()
     for i in range(1,300):
         learn()
